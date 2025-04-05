@@ -1,5 +1,6 @@
 package io.github.qeroney.exceptionUtils;
 
+import io.github.qeroney.exceptionUtils.exceptions.ConflictException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,13 @@ public abstract class BaseApiExceptionHandler extends ResponseEntityExceptionHan
     @ResponseBody
     public ErrorDto handleNoHandlerFoundException(NoHandlerFoundException exception) {
         return buildErrorResponse(exception, 404, "Запрашиваемый ресурс не найден");
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ConflictException.class)
+    @ResponseBody
+    public ErrorDto handleConflictException(ConflictException exception) {
+        return buildErrorResponse(exception, 404, exception.getMessage());
     }
 
     private ErrorDto buildErrorResponse(Throwable e, int code, String message) {

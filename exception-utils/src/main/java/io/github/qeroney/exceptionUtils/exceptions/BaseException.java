@@ -2,7 +2,7 @@ package io.github.qeroney.exceptionUtils.exceptions;
 
 import io.github.qeroney.exceptionUtils.dto.MessageError;
 
-public class BaseException extends RuntimeException {
+public abstract class BaseException extends RuntimeException {
 
     private int code;
 
